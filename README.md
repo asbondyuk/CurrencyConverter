@@ -69,16 +69,75 @@
         - сохранение состояния при поворотах экрана
 
 3) Проектирование решения
+        abstract class Currency(
+        )
+
+        class CBRCurrency extend Currency{
+            id,
+            numCode,
+            charCode,
+            nominal,
+            value
+            previous
+        }
+
+        interface CurrencyConverter(){
+            public double convert(double quantity, Currency fromCurrency, Currency toCurrency);
+        }
+
+        class RublesCurrencyConverter implementation CurrencyConverter{
+        }
+
+        class ExchangeRateDate(
+            date
+        )
+
+        class ReportUpdateDate(
+            date
+        )
+
+
+        + Сервисные классы по
+            - считыванию файла по ссылке
+            - таймер (на основе разницы времен?)
+                + "кэш контроллер" (запрос обновления при протухании файла)
+            - json преобразователь
+
+        + View
+            - 2 activity
+            - loader на загрузку файла
+            - тост по успешному завершению
+
 4) Реализация
 5) Тестирование
 6) Дополнительно:
     ? правила округления при конвертации валют
-    ? часовые пояса в данны времени курса
+        Округление в бОльшую сторону до 0,01
+
+    ? часовые пояса в данном времени курса
     ? оценить периодизацию обновлений курсов
-    ? переход к конвертации валют с возможностью выбора валюты непосредственно на экране конвертации
+
+    ? сохранение состояния при повороте
+        https://developer.android.com/topic/libraries/architecture/saving-states
+
+    ? способ кэширования
+        требований на расширение/объемы данных нет, так что без заморочек - сохранение json файла в приложении
+
     ? выбор библиотеки для разбора json файла
+        GSON
+            функционал базовый: записать/прочитать json, поэтому
+            требований к библиотеке (расширения форматов/ размера библиотек/скорости работы) нет.
+            Основной выбор между gson/jackson/moshi (технические аспекты тут https://www.ericdecanini.com/2020/09/29/gson-vs-jackson-vs-moshi-the-best-android-json-parser/),
+            поэтому выбрал наиболее популярную (https://www.appbrain.com/stats/libraries/tag/json/json-parsing-libraries), тем более что Google поддерживает
+
     ? что такое/настройка backup_descriptor.xml  (добавленного ide)
+
+    ? swipe для обновления курса (запроса файла)
+        https://developer.android.com/training/swipe/add-swipe-interface
+
     ? возможные варианты ошибок и их обработка
     ? логгирование
     ? ui тестирование
+
     ? onboading
+        https://developer.android.com/training/tv/playback/onboarding
