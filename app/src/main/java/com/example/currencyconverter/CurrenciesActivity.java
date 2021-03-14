@@ -22,7 +22,7 @@ import com.example.currencyconverter.dto.DTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class MainActivity extends AppCompatActivity {
+public class CurrenciesActivity extends AppCompatActivity {
     private static final int PERMISSION_STORAGE_CODE = 1000;
 
     private CurrencyAdapter currencyAdapter;
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_currencies);
 
         initRecyclerView();
 
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickGoToConverter(View view) {
-        Intent intent = new Intent(MainActivity.this, ConverterActivity.class);
+        Intent intent = new Intent(CurrenciesActivity.this, ConverterActivity.class);
         startActivity(intent);
     }
 
