@@ -58,8 +58,9 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
         currenciesRecyclerView.setAdapter(currencyAdapter);
     }
 
-    public void onClickGoToConverter() {
+    public void onClickGoToConverter(DTOCurrency dtoCurrency) {
         Intent intent = new Intent(CurrenciesActivity.this, ConverterActivity.class);
+        intent.putExtra("currency for convert", dtoCurrency);
         startActivity(intent);
     }
 
@@ -95,13 +96,11 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSION_STORAGE_CODE: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startDownloading();
-                } else {
-                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
-                }
+        if (requestCode == PERMISSION_STORAGE_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startDownloading();
+            } else {
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -110,6 +109,7 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
 
     @Override
     public void onItemClick(int position) {
-        onClickGoToConverter();
+
+        onClickGoToConverter(currencies.get(position));
     }
 }

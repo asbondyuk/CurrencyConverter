@@ -14,13 +14,9 @@ import com.example.currencyconverter.RecyclerViewOnClickInterface;
 import com.example.currencyconverter.dto.DTOCurrency;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 
-//https://www.google.com/search?q=recyclerview+onclick+item&oq=RecyclerView+onClick&aqs=chrome.3.69i57j0l6j69i60.3101j0j7&sourceid=chrome&ie=UTF-8#kpvalbx=_6CdOYKvMC8uyqwHVqbyAAw11
-// https://www.youtube.com/watch?v=AkiltTv0CjA
-// https://devcolibri.com/unit/%D1%83%D1%80%D0%BE%D0%BA-10-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-%D1%81-recyclerview-%D0%BD%D0%B0-%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D0%B5-tweetsrecyclerview-2/
 public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder> {
     private List<DTOCurrency> currencyList = new ArrayList<>();
     private RecyclerViewOnClickInterface recyclerViewOnClickInterface;
@@ -58,11 +54,6 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.Curren
 
     public void setItems(List<DTOCurrency> currencies) {
         currencyList.addAll(currencies);
-        notifyDataSetChanged();
-    }
-
-    public void clearItems() {
-        currencyList.clear();
         notifyDataSetChanged();
     }
 
