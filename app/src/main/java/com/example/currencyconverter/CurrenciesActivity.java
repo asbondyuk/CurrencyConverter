@@ -19,14 +19,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.currencyconverter.adapter.CurrencyAdapter;
 import com.example.currencyconverter.dto.DTO;
+import com.example.currencyconverter.dto.DTOCurrency;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class CurrenciesActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class CurrenciesActivity extends AppCompatActivity implements RecyclerViewOnClickInterface {
     private static final int PERMISSION_STORAGE_CODE = 1000;
 
     private CurrencyAdapter currencyAdapter;
     private RecyclerView currenciesRecyclerView;
+    private RecyclerViewOnClickInterface recyclerViewOnClickInterface;
+    private List<DTOCurrency> currencies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,18 +45,20 @@ public class CurrenciesActivity extends AppCompatActivity {
         Gson gson = builder.create();
 
         DTO dto = gson.fromJson(Config.JSON_FILE, DTO.class);
-        currencyAdapter.setItems(dto.getValute().values());
+
+        currencies = new ArrayList<>(dto.getValute().values());
+        currencyAdapter.setItems(currencies);
     }
 
     private void initRecyclerView() {
         currenciesRecyclerView = findViewById(R.id.recyclerview);
         currenciesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        currencyAdapter = new CurrencyAdapter();
+        currencyAdapter = new CurrencyAdapter(this);
         currenciesRecyclerView.setAdapter(currencyAdapter);
     }
 
-    public void onClickGoToConverter(View view) {
+    public void onClickGoToConverter() {
         Intent intent = new Intent(CurrenciesActivity.this, ConverterActivity.class);
         startActivity(intent);
     }
@@ -74,12 +82,12 @@ public class CurrenciesActivity extends AppCompatActivity {
 
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-        request.setTitle("Download");
-        request.setDescription("Downloading file ...");
+//        request.setTitle("Download");
+//        request.setDescription("Downloading file ...");
 
         request.allowScanningByMediaScanner();
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "daily_json.js");
+//        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "cbr");
 
         DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         manager.enqueue(request);
@@ -98,5 +106,10 @@ public class CurrenciesActivity extends AppCompatActivity {
         }
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        onClickGoToConverter();
     }
 }

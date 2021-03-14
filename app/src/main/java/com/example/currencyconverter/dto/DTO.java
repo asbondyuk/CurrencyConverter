@@ -3,13 +3,14 @@ package com.example.currencyconverter.dto;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 public class DTO implements Serializable {
     private java.util.Date Date;
     private Date PreviousDate;
     private String PreviousURL;
     private Date Timestamp;
-    private HashMap<String, DTOCurrency> Valute;
+    private Map<String, DTOCurrency> Valute;
 
     public DTO(java.util.Date date, java.util.Date previousDate, String previousURL, java.util.Date timestamp, HashMap<String, DTOCurrency> valute) {
         Date = date;
@@ -35,7 +36,7 @@ public class DTO implements Serializable {
         return Timestamp;
     }
 
-    public HashMap<String, DTOCurrency> getValute() {
+    public Map<String, DTOCurrency> getValute() {
         return Valute;
     }
 }
