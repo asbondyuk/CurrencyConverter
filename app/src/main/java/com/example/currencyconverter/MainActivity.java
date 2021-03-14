@@ -14,29 +14,40 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.currencyconverter.util.DTO;
-import com.example.currencyconverter.util.DTOCurrency;
+import com.example.currencyconverter.adapter.CurrencyAdapter;
+import com.example.currencyconverter.dto.DTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_STORAGE_CODE = 1000;
+
+    private CurrencyAdapter currencyAdapter;
+    private RecyclerView currenciesRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initRecyclerView();
+
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
 
         DTO dto = gson.fromJson(Config.JSON_FILE, DTO.class);
+        currencyAdapter.setItems(dto.getValute().values());
+    }
 
+    private void initRecyclerView() {
+        currenciesRecyclerView = findViewById(R.id.recyclerview);
+        currenciesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        currencyAdapter = new CurrencyAdapter();
+        currenciesRecyclerView.setAdapter(currencyAdapter);
     }
 
     public void onClickGoToConverter(View view) {
@@ -70,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "daily_json.js");
 
-        DownloadManager manager = (DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE);
+        DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         manager.enqueue(request);
     }
 

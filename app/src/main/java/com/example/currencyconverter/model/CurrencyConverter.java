@@ -1,6 +1,6 @@
 package com.example.currencyconverter.model;
 
-import com.example.currencyconverter.util.DTOCurrency;
+import com.example.currencyconverter.dto.DTOCurrency;
 
 public class CurrencyConverter {
     private CurrencyConverter() {

@@ -1,4 +1,4 @@
-package com.example.currencyconverter.util;
+package com.example.currencyconverter.dto;
 
 import java.io.Serializable;
 
