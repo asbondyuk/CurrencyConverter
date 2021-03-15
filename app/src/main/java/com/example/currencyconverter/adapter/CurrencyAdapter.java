@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.currencyconverter.R;
 import com.example.currencyconverter.RecyclerViewOnClickInterface;
-import com.example.currencyconverter.dto.DTOCurrency;
+import com.example.currencyconverter.pojo.DTOCurrency;
 
 import java.util.ArrayList;
 import java.util.List;

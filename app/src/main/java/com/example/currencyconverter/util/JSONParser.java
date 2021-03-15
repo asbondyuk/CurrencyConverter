@@ -1,6 +1,6 @@
 package com.example.currencyconverter.util;
 
-import com.example.currencyconverter.dto.DTO;
+import com.example.currencyconverter.pojo.DTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

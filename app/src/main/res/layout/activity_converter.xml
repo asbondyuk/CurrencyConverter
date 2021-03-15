@@ -3,17 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp">
+    android:padding="15dp">
 
+    <TextView
+        android:id="@+id/textStartedConvert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Введите сумму в рублях для конвертации"
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/editTextConvertedRublesAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textStartedConvert"
         android:autofillHints=""
         android:ems="10"
         android:hint="1000"
         android:inputType="numberDecimal"
+        android:padding="5dp"
         android:textSize="50dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,6 +37,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editTextConvertedRublesAmount"
+        android:layout_alignParentLeft="true"
+        android:padding="5dp"
+        android:textSize="50dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonConvert"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,35 +49,50 @@
         android:id="@+id/textCurrencyValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:layout_below="@+id/editTextConvertedRublesAmount"
+        android:layout_alignParentRight="true"
+        android:padding="5dp"
+        android:textSize="50dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonConvert"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textCurrencyCode" />
 
+
     <Button
         android:id="@+id/buttonConvert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textCurrencyCode"
+        android:layout_below="@+id/textCurrencyValue"
         android:onClick="convert"
+        android:padding="5dp"
         android:text="@string/textButtonConverted"
+        android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextConvertedRublesAmount" />
 
+    <TextView
+        android:id="@+id/textEndedConvert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonConvert"
+        android:padding="5dp"
+        android:text="Результат конвертации:"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/textViewConvertedResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonConvert"
-        android:text="1111"
+        android:layout_below="@+id/textEndedConvert"
+        android:layout_centerHorizontal="true"
+        android:padding="5dp"
+        android:textSize="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonConvert" />
-
 
 </RelativeLayout>

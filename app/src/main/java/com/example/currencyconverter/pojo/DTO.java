@@ -1,11 +1,13 @@
-package com.example.currencyconverter.dto;
+package com.example.currencyconverter.pojo;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DTO implements Serializable {
+public class DTO implements Parcelable {
     private java.util.Date Date;
     private Date PreviousDate;
     private String PreviousURL;
@@ -19,6 +21,22 @@ public class DTO implements Serializable {
         Timestamp = timestamp;
         Valute = valute;
     }
+
+    protected DTO(Parcel in) {
+        PreviousURL = in.readString();
+    }
+
+    public static final Creator<DTO> CREATOR = new Creator<DTO>() {
+        @Override
+        public DTO createFromParcel(Parcel in) {
+            return new DTO(in);
+        }
+
+        @Override
+        public DTO[] newArray(int size) {
+            return new DTO[size];
+        }
+    };
 
     public java.util.Date getDate() {
         return Date;
@@ -38,5 +56,15 @@ public class DTO implements Serializable {
 
     public Map<String, DTOCurrency> getValute() {
         return Valute;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(PreviousURL);
     }
 }
