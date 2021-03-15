@@ -1,75 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="20dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <EditText
+        android:id="@+id/editTextConvertedRublesAmount"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".CurrenciesActivity"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="92dp">
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="1000"
+        android:inputType="numberDecimal"
+        android:textSize="50dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.084" />
 
-        <EditText
-            android:id="@+id/editTextConvertedRublesAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:ems="10"
-            android:hint="1000"
-            android:inputType="numberDecimal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.084" />
+    <TextView
+        android:id="@+id/textCurrencyCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextConvertedRublesAmount"
+        app:layout_constraintBottom_toTopOf="@+id/buttonConvert"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextConvertedRublesAmount" />
 
-        <Button
-            android:id="@+id/buttonConvert"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="convert"
-            android:text="Ковертировать"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextConvertedRublesAmount" />
+    <TextView
+        android:id="@+id/textCurrencyValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/buttonConvert"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textCurrencyCode" />
 
-        <TextView
-            android:id="@+id/textViewConvertedResult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonConvert" />
-
-        <TextView
-            android:id="@+id/textCurrencyCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            app:layout_constraintBottom_toTopOf="@+id/buttonConvert"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextConvertedRublesAmount" />
-
-        <TextView
-            android:id="@+id/textCurrencyValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            app:layout_constraintBottom_toTopOf="@+id/buttonConvert"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textCurrencyCode" />
+    <Button
+        android:id="@+id/buttonConvert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textCurrencyCode"
+        android:onClick="convert"
+        android:text="@string/textButtonConverted"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextConvertedRublesAmount" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/textViewConvertedResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonConvert"
+        android:text="1111"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonConvert" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

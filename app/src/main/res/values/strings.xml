@@ -2,5 +2,6 @@
     <string name="app_name">Currency Converter</string>
 
     <string name="cbr_url">https://www.cbr-xml-daily.ru/daily_json.js</string>
+    <string name="textButtonConverted">Ковертировать</string>
 
 </resources>
