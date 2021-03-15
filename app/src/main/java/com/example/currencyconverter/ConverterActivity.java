@@ -3,13 +3,15 @@ package com.example.currencyconverter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.currencyconverter.pojo.DTOCurrency;
 import com.example.currencyconverter.model.CurrencyConverter;
+import com.example.currencyconverter.pojo.DTOCurrency;
 
 public class ConverterActivity extends AppCompatActivity {
     public static final String TAG = "ConverterActivity";
@@ -32,17 +34,14 @@ public class ConverterActivity extends AppCompatActivity {
     }
 
     public void convert(View view) {
-        Log.i(TAG, "Convert button pushed");
+        EditText editText = findViewById(R.id.editTextConvertedRublesAmount);
 
-        Log.i(TAG, "CurrencyConverter is running");
-        String converterResult = CurrencyConverter.convert(100, currency);
-        Log.i(TAG, "CurrencyConverter finished");
+        if(editText.getText()!= null){
+            String converterResult = CurrencyConverter.convert(Double.parseDouble(editText.getText().toString()), currency);
+            TextView textResult = findViewById(R.id.textEndedConvert);
+            textResult.setVisibility(View.VISIBLE);
 
-        TextView textResult = findViewById(R.id.textEndedConvert);
-        textResult.setVisibility(View.VISIBLE);
-
-        TextView editTextView = findViewById(R.id.textViewConvertedResult);
-        editTextView.setText("100");
-        Log.i(TAG, "Show result converting");
+            TextView editTextView = findViewById(R.id.textViewConvertedResult);
+        }
     }
 }

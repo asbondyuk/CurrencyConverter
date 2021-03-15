@@ -7,8 +7,8 @@ public class CurrencyConverter {
     }
 
     public static String convert(double convertibleRublesAmount, DTOCurrency toCurrency) {
+        double roundedResult = Math.ceil(convertibleRublesAmount / toCurrency.getValue() * toCurrency.getNominal() * 100) ;
 
-
-        return String.valueOf(Math.ceil(convertibleRublesAmount / toCurrency.getValue() * toCurrency.getNominal() * 100) / 100);
+        return String.valueOf(roundedResult);
     }
 }

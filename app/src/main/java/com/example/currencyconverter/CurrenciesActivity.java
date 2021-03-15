@@ -1,16 +1,10 @@
 package com.example.currencyconverter;
 
 import android.Manifest;
-import android.app.DownloadManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -25,14 +19,7 @@ import com.example.currencyconverter.adapter.CurrencyAdapter;
 import com.example.currencyconverter.pojo.DTO;
 import com.example.currencyconverter.pojo.DTOCurrency;
 import com.example.currencyconverter.util.DateFormat;
-import com.example.currencyconverter.util.JSONParser;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,12 +32,9 @@ import retrofit2.Response;
 public class CurrenciesActivity extends AppCompatActivity implements RecyclerViewOnClickInterface {
     public static final String TAG = "CurrenciesActivity";
     private static final int PERMISSION_STORAGE_CODE = 1000;
-    private static final String FILE_NAME = "daily_json.js";
-    private static final String URL = "https://www.cbr-xml-daily.ru/daily_json.js";
 
     private CurrencyAdapter currencyAdapter;
-    private RecyclerView currenciesRecyclerView;
-    private RecyclerViewOnClickInterface recyclerViewOnClickInterface;
+
     private List<DTOCurrency> currencies;
     private DTO dto;
 
@@ -67,7 +51,7 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
     }
 
     private void initRecyclerView() {
-        currenciesRecyclerView = findViewById(R.id.recyclerview);
+        RecyclerView currenciesRecyclerView = findViewById(R.id.recyclerview);
         currenciesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         currencyAdapter = new CurrencyAdapter(this);
@@ -122,7 +106,6 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
 
             @Override
             public void onFailure(Call<DTO> call, Throwable t) {
-
             }
         });
     }
