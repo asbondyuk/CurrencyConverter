@@ -34,7 +34,7 @@ public class ConverterActivity extends AppCompatActivity {
         value.setText(String.valueOf(currency.getValue()));
 
         TextView nominal = findViewById(R.id.nominal);
-        nominal.setText("Номинал: " + currency.getNominal() );
+        nominal.setText("Номинал: " + currency.getNominal());
     }
 
     public void convert(View view) {
@@ -53,7 +53,6 @@ public class ConverterActivity extends AppCompatActivity {
             editTextView.setText(converterResult);
             editTextView.setVisibility(View.VISIBLE);
         }
-
 
         Log.d(TAG, "Show result converting");
     }

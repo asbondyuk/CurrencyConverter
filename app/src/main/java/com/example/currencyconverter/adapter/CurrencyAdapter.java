@@ -2,7 +2,6 @@ package com.example.currencyconverter.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -17,20 +16,18 @@ import java.util.List;
 
 
 public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder> {
-    private List<CurrencyDTO> currencyList = new ArrayList<>();
-    private RecyclerViewOnClickInterface recyclerViewOnClickInterface;
-    private List<CurrencyDTO> currencies;
+    private final List<CurrencyDTO> currencyList = new ArrayList<>();
+    private final RecyclerViewOnClickInterface recyclerViewOnClickInterface;
 
     public CurrencyAdapter(RecyclerViewOnClickInterface recyclerViewOnClickInterface) {
         this.recyclerViewOnClickInterface = recyclerViewOnClickInterface;
     }
 
     class CurrencyViewHolder extends RecyclerView.ViewHolder {
-        private TextView charCodeView;
-        private TextView nameView;
-        private TextView valueView;
-        private TextView nominalView;
-        private OnClickListener onClickListener;
+        private final TextView charCodeView;
+        private final TextView nameView;
+        private final TextView valueView;
+        private final TextView nominalView;
 
         public CurrencyViewHolder(View itemView) {
             super(itemView);

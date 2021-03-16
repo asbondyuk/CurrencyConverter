@@ -31,7 +31,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-//https://stackoverflow.com/questions/21335129/android-open-downloaded-file
 public class CurrenciesActivity extends AppCompatActivity implements RecyclerViewOnClickInterface {
     public static final String TAG = "CurrenciesActivity";
     private static final int PERMISSION_STORAGE_CODE = 1000;

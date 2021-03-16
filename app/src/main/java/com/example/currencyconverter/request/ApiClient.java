@@ -3,7 +3,6 @@ package com.example.currencyconverter.request;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-// https://howtodoandroid.medium.com/retrofit-android-example-with-recyclerview-870e74e5b2ff
 public class ApiClient {
     public static String BASE_URL = "https://www.cbr-xml-daily.ru/";
     private static Retrofit retrofit;

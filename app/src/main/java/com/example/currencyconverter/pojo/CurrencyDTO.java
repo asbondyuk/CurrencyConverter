@@ -4,13 +4,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class CurrencyDTO implements Parcelable {
-    private String ID;
-    private String NumCode;
-    private String CharCode;
-    private int Nominal;
-    private String Name;
-    private double Value;
-    private double Previous;
+    private final String ID;
+    private final String NumCode;
+    private final String CharCode;
+    private final int Nominal;
+    private final String Name;
+    private final double Value;
+    private final double Previous;
 
     public CurrencyDTO(String ID, String numCode, String charCode, int nominal, String name, double value, double previous) {
         this.ID = ID;
