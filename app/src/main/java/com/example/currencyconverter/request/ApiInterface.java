@@ -1,4 +1,4 @@
-package com.example.currencyconverter;
+package com.example.currencyconverter.request;
 
 import com.example.currencyconverter.pojo.DTO;
 

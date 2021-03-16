@@ -1,4 +1,4 @@
-package com.example.currencyconverter;
+package com.example.currencyconverter.request;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

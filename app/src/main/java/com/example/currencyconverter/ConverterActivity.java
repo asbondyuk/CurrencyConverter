@@ -5,8 +5,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,23 +25,36 @@ public class ConverterActivity extends AppCompatActivity {
 
         findViewById(R.id.textEndedConvert).setVisibility(View.INVISIBLE);
 
-        TextView charCode = findViewById(R.id.textCurrencyCode);
-        TextView value = findViewById(R.id.textCurrencyValue);
-        DTOCurrency currency = getIntent().getParcelableExtra("currency for convert");
+        this.currency = getIntent().getParcelableExtra("currency for convert");
 
+        TextView charCode = findViewById(R.id.textCurrencyCode);
         charCode.setText(currency.getCharCode());
+
+        TextView value = findViewById(R.id.textCurrencyValue);
         value.setText(String.valueOf(currency.getValue()));
+
+        TextView nominal = findViewById(R.id.nominal);
+        nominal.setText("Номинал: " + currency.getNominal() );
     }
 
     public void convert(View view) {
         EditText editText = findViewById(R.id.editTextConvertedRublesAmount);
+        String ed_text = editText.getText().toString().trim();
 
-        if(editText.getText()!= null){
-            String converterResult = CurrencyConverter.convert(Double.parseDouble(editText.getText().toString()), currency);
+        if (ed_text.isEmpty() || ed_text.length() == 0 || ed_text.equals("") || ed_text == null) {
+            Toast.makeText(this, "Need value", Toast.LENGTH_SHORT).show();
+        } else {
+
             TextView textResult = findViewById(R.id.textEndedConvert);
             textResult.setVisibility(View.VISIBLE);
 
+            String converterResult = CurrencyConverter.convert(Double.parseDouble(editText.getText().toString()), currency);
             TextView editTextView = findViewById(R.id.textViewConvertedResult);
+            editTextView.setText(converterResult);
+            editTextView.setVisibility(View.VISIBLE);
         }
+
+
+        Log.d(TAG, "Show result converting");
     }
 }

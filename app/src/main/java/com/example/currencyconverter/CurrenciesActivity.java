@@ -16,8 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.currencyconverter.adapter.CurrencyAdapter;
+import com.example.currencyconverter.adapter.RecyclerViewOnClickInterface;
 import com.example.currencyconverter.pojo.DTO;
 import com.example.currencyconverter.pojo.DTOCurrency;
+import com.example.currencyconverter.request.ApiClient;
+import com.example.currencyconverter.request.ApiInterface;
 import com.example.currencyconverter.util.DateFormat;
 
 import java.util.ArrayList;
@@ -108,6 +111,8 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
             public void onFailure(Call<DTO> call, Throwable t) {
             }
         });
+
+        Toast.makeText(this, "Downloading", Toast.LENGTH_SHORT).show();
     }
 
     @Override

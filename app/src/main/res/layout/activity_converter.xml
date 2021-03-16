@@ -59,11 +59,20 @@
         app:layout_constraintTop_toBottomOf="@+id/textCurrencyCode" />
 
 
+    <TextView
+        android:id="@+id/nominal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textCurrencyValue"
+        android:layout_alignParentRight="true"
+        android:padding="5dp"
+        android:textStyle="italic" />
+
     <Button
         android:id="@+id/buttonConvert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textCurrencyValue"
+        android:layout_below="@+id/nominal"
         android:onClick="convert"
         android:padding="5dp"
         android:text="@string/textButtonConverted"
