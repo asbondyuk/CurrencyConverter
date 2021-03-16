@@ -7,14 +7,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DTO implements Parcelable {
+public class CbrFileDTO implements Parcelable {
     private java.util.Date Date;
     private Date PreviousDate;
     private String PreviousURL;
     private Date Timestamp;
-    private Map<String, DTOCurrency> Valute;
+    private Map<String, CurrencyDTO> Valute;
 
-    public DTO(java.util.Date date, java.util.Date previousDate, String previousURL, java.util.Date timestamp, HashMap<String, DTOCurrency> valute) {
+    public CbrFileDTO(java.util.Date date, java.util.Date previousDate, String previousURL, java.util.Date timestamp, HashMap<String, CurrencyDTO> valute) {
         Date = date;
         PreviousDate = previousDate;
         PreviousURL = previousURL;
@@ -22,19 +22,19 @@ public class DTO implements Parcelable {
         Valute = valute;
     }
 
-    protected DTO(Parcel in) {
+    protected CbrFileDTO(Parcel in) {
         PreviousURL = in.readString();
     }
 
-    public static final Creator<DTO> CREATOR = new Creator<DTO>() {
+    public static final Creator<CbrFileDTO> CREATOR = new Creator<CbrFileDTO>() {
         @Override
-        public DTO createFromParcel(Parcel in) {
-            return new DTO(in);
+        public CbrFileDTO createFromParcel(Parcel in) {
+            return new CbrFileDTO(in);
         }
 
         @Override
-        public DTO[] newArray(int size) {
-            return new DTO[size];
+        public CbrFileDTO[] newArray(int size) {
+            return new CbrFileDTO[size];
         }
     };
 
@@ -54,7 +54,7 @@ public class DTO implements Parcelable {
         return Timestamp;
     }
 
-    public Map<String, DTOCurrency> getValute() {
+    public Map<String, CurrencyDTO> getValute() {
         return Valute;
     }
 

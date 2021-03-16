@@ -10,16 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.currencyconverter.R;
-import com.example.currencyconverter.pojo.DTOCurrency;
+import com.example.currencyconverter.pojo.CurrencyDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.CurrencyViewHolder> {
-    private List<DTOCurrency> currencyList = new ArrayList<>();
+    private List<CurrencyDTO> currencyList = new ArrayList<>();
     private RecyclerViewOnClickInterface recyclerViewOnClickInterface;
-    private List<DTOCurrency> currencies;
+    private List<CurrencyDTO> currencies;
 
     public CurrencyAdapter(RecyclerViewOnClickInterface recyclerViewOnClickInterface) {
         this.recyclerViewOnClickInterface = recyclerViewOnClickInterface;
@@ -43,15 +43,15 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.Curren
             itemView.setOnClickListener(v -> recyclerViewOnClickInterface.onItemClick(getAdapterPosition()));
         }
 
-        public void bind(DTOCurrency dtoCurrency) {
-            charCodeView.setText(dtoCurrency.getCharCode());
-            nameView.setText(dtoCurrency.getName());
-            nominalView.setText("Номинал: " + dtoCurrency.getNominal());
-            valueView.setText(String.valueOf(dtoCurrency.getValue()));
+        public void bind(CurrencyDTO currencyDTO) {
+            charCodeView.setText(currencyDTO.getCharCode());
+            nameView.setText(currencyDTO.getName());
+            nominalView.setText("Номинал: " + currencyDTO.getNominal());
+            valueView.setText(String.valueOf(currencyDTO.getValue()));
         }
     }
 
-    public void setItems(List<DTOCurrency> currencies) {
+    public void setItems(List<CurrencyDTO> currencies) {
         currencyList.addAll(currencies);
         notifyDataSetChanged();
     }

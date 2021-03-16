@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.currencyconverter.adapter.CurrencyAdapter;
 import com.example.currencyconverter.adapter.RecyclerViewOnClickInterface;
-import com.example.currencyconverter.pojo.DTO;
-import com.example.currencyconverter.pojo.DTOCurrency;
+import com.example.currencyconverter.pojo.CbrFileDTO;
+import com.example.currencyconverter.pojo.CurrencyDTO;
 import com.example.currencyconverter.request.ApiClient;
 import com.example.currencyconverter.request.ApiInterface;
 import com.example.currencyconverter.util.DateFormat;
@@ -38,8 +38,8 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
 
     private CurrencyAdapter currencyAdapter;
 
-    private List<DTOCurrency> currencies;
-    private DTO dto;
+    private List<CurrencyDTO> currencies;
+    private CbrFileDTO cbrFileDto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +63,9 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
         Log.d(TAG, "RecyclerView init finish");
     }
 
-    public void onClickGoToConverter(DTOCurrency dtoCurrency) {
+    public void onClickGoToConverter(CurrencyDTO currencyDTO) {
         Intent intent = new Intent(CurrenciesActivity.this, ConverterActivity.class);
-        intent.putExtra("currency for convert", dtoCurrency);
+        intent.putExtra("currency for convert", currencyDTO);
         startActivity(intent);
 
         Log.d(TAG, "Goto ConverterActivity");
@@ -93,22 +93,22 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
 
     private void startDownloading() {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<DTO> call = apiService.getCurrencies();
+        Call<CbrFileDTO> call = apiService.getCurrencies();
 
-        call.enqueue(new Callback<DTO>() {
+        call.enqueue(new Callback<CbrFileDTO>() {
             @Override
-            public void onResponse(Call<DTO> call, Response<DTO> response) {
-                dto = response.body();
+            public void onResponse(Call<CbrFileDTO> call, Response<CbrFileDTO> response) {
+                cbrFileDto = response.body();
 
                 TextView date = findViewById(R.id.textCurrenciesDate);
-                date.setText(DateFormat.dateFormat(dto.getDate()));
+                date.setText(DateFormat.dateFormat(cbrFileDto.getDate()));
 
-                currencies = new ArrayList<>(dto.getValute().values());
+                currencies = new ArrayList<>(cbrFileDto.getValute().values());
                 currencyAdapter.setItems(currencies);
             }
 
             @Override
-            public void onFailure(Call<DTO> call, Throwable t) {
+            public void onFailure(Call<CbrFileDTO> call, Throwable t) {
             }
         });
 
@@ -128,55 +128,4 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-
-//    public void save(View v) {
-//        String text = Config.JSON_FILE;
-//        FileOutputStream outputStream = null;
-//
-//        try {
-//            outputStream = openFileOutput(FILE_NAME, MODE_PRIVATE);
-//            outputStream.write(text.getBytes());
-//
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            if (outputStream != null) {
-//                try {
-//                    outputStream.close();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//    }
-//
-//    public void load(View v) {
-//        FileInputStream inputStream = null;
-//
-//        try {
-//            inputStream = openFileInput(FILE_NAME);
-//            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-//            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-//            StringBuilder stringBuilder = new StringBuilder();
-//
-//            String text;
-//            while ((text = bufferedReader.readLine()) != null) {
-//                stringBuilder.append(text).append("\n");
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            if (inputStream != null) {
-//                try {
-//                    inputStream.close();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//    }
-
 }

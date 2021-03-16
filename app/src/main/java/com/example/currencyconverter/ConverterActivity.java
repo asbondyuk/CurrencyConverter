@@ -11,19 +11,19 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.currencyconverter.model.CurrencyConverter;
-import com.example.currencyconverter.pojo.DTOCurrency;
+import com.example.currencyconverter.pojo.CurrencyDTO;
 
 public class ConverterActivity extends AppCompatActivity {
     public static final String TAG = "ConverterActivity";
 
-    private DTOCurrency currency;
+    private CurrencyDTO currency;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_converter);
 
-        findViewById(R.id.textEndedConvert).setVisibility(View.INVISIBLE);
+        findViewById(R.id.textConvertResultHelper).setVisibility(View.INVISIBLE);
 
         this.currency = getIntent().getParcelableExtra("currency for convert");
 
@@ -38,18 +38,18 @@ public class ConverterActivity extends AppCompatActivity {
     }
 
     public void convert(View view) {
-        EditText editText = findViewById(R.id.editTextConvertedRublesAmount);
+        EditText editText = findViewById(R.id.editTextConvertAmount);
         String ed_text = editText.getText().toString().trim();
 
         if (ed_text.isEmpty() || ed_text.length() == 0 || ed_text.equals("") || ed_text == null) {
             Toast.makeText(this, "Need value", Toast.LENGTH_SHORT).show();
         } else {
 
-            TextView textResult = findViewById(R.id.textEndedConvert);
+            TextView textResult = findViewById(R.id.textConvertResultHelper);
             textResult.setVisibility(View.VISIBLE);
 
             String converterResult = CurrencyConverter.convert(Double.parseDouble(editText.getText().toString()), currency);
-            TextView editTextView = findViewById(R.id.textViewConvertedResult);
+            TextView editTextView = findViewById(R.id.textConvertedResult);
             editTextView.setText(converterResult);
             editTextView.setVisibility(View.VISIBLE);
         }

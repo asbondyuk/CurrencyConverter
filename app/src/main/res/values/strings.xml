@@ -3,5 +3,9 @@
 
     <string name="cbr_url">https://www.cbr-xml-daily.ru/daily_json.js</string>
     <string name="textButtonConverted">Ковертировать</string>
+    <string name="convertAmountHelper">Введите сумму в рублях для конвертации</string>
+    <string name="convertAmountExample">1000.50</string>
+    <string name="convertResultHelper">Результат конвертации:</string>
+    <string name="buttonUpdate">Update</string>
 
 </resources>

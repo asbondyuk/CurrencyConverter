@@ -3,7 +3,7 @@ package com.example.currencyconverter.pojo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class DTOCurrency implements Parcelable {
+public class CurrencyDTO implements Parcelable {
     private String ID;
     private String NumCode;
     private String CharCode;
@@ -12,7 +12,7 @@ public class DTOCurrency implements Parcelable {
     private double Value;
     private double Previous;
 
-    public DTOCurrency(String ID, String numCode, String charCode, int nominal, String name, double value, double previous) {
+    public CurrencyDTO(String ID, String numCode, String charCode, int nominal, String name, double value, double previous) {
         this.ID = ID;
         NumCode = numCode;
         CharCode = charCode;
@@ -22,7 +22,7 @@ public class DTOCurrency implements Parcelable {
         Previous = previous;
     }
 
-    protected DTOCurrency(Parcel in) {
+    protected CurrencyDTO(Parcel in) {
         ID = in.readString();
         NumCode = in.readString();
         CharCode = in.readString();
@@ -32,15 +32,15 @@ public class DTOCurrency implements Parcelable {
         Previous = in.readDouble();
     }
 
-    public static final Creator<DTOCurrency> CREATOR = new Creator<DTOCurrency>() {
+    public static final Creator<CurrencyDTO> CREATOR = new Creator<CurrencyDTO>() {
         @Override
-        public DTOCurrency createFromParcel(Parcel in) {
-            return new DTOCurrency(in);
+        public CurrencyDTO createFromParcel(Parcel in) {
+            return new CurrencyDTO(in);
         }
 
         @Override
-        public DTOCurrency[] newArray(int size) {
-            return new DTOCurrency[size];
+        public CurrencyDTO[] newArray(int size) {
+            return new CurrencyDTO[size];
         }
     };
 
