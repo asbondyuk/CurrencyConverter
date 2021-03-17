@@ -9,7 +9,7 @@ public class DateFormat {
     private DateFormat() {
     }
 
-    public static String dateFormat(Date date) {
+    public static String dateFormatToString(Date date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_PATTERN);
         return simpleDateFormat.format(date);
     }

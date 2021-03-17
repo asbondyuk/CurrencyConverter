@@ -17,11 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.currencyconverter.adapter.CurrencyAdapter;
 import com.example.currencyconverter.adapter.RecyclerViewOnClickInterface;
+import com.example.currencyconverter.cache.SharedPreferencesManager;
 import com.example.currencyconverter.pojo.CbrFileDTO;
 import com.example.currencyconverter.pojo.CurrencyDTO;
 import com.example.currencyconverter.request.ApiClient;
 import com.example.currencyconverter.request.ApiInterface;
 import com.example.currencyconverter.util.DateFormat;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,16 +42,19 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
     private List<CurrencyDTO> currencies;
     private CbrFileDTO cbrFileDto;
 
+    private SharedPreferencesManager sharedPreferencesManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currencies);
 
+        sharedPreferencesManager = new SharedPreferencesManager(this);
         initRecyclerView();
 
-        download(findViewById(R.id.currenciesLayout));
-
-        Log.d(TAG, "File downloading");
+        if (!useCache()) {
+            download(findViewById(R.id.currenciesLayout));
+        }
     }
 
     private void initRecyclerView() {
@@ -98,12 +103,9 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
             @Override
             public void onResponse(Call<CbrFileDTO> call, Response<CbrFileDTO> response) {
                 cbrFileDto = response.body();
+                Log.d(TAG, "Response received");
 
-                TextView date = findViewById(R.id.textCurrenciesDate);
-                date.setText(DateFormat.dateFormat(cbrFileDto.getDate()));
-
-                currencies = new ArrayList<>(cbrFileDto.getValute().values());
-                currencyAdapter.setItems(currencies);
+                fillActivityData(cbrFileDto);
             }
 
             @Override
@@ -126,5 +128,41 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
         }
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private void fillActivityData(CbrFileDTO cbrFileDto) {
+        TextView date = findViewById(R.id.textCurrenciesDate);
+        date.setText(DateFormat.dateFormatToString(cbrFileDto.getDate()));
+
+        currencies = new ArrayList<>(cbrFileDto.getValute().values());
+        currencyAdapter.setItems(currencies);
+
+        Log.d(TAG, "CurrenciesActivity was filled data");
+    }
+
+    private boolean useCache() {
+        if (sharedPreferencesManager.isContainData()) {
+            fillActivityData(loadCache());
+
+            Log.d(TAG, "Cache was used");
+            return true;
+        }
+
+        return false;
+    }
+
+    private CbrFileDTO loadCache() {
+        Gson gson = new Gson();
+        String cache = sharedPreferencesManager.loadData();
+        return gson.fromJson(cache, CbrFileDTO.class);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Gson gson = new Gson();
+        String dataToCaching = gson.toJson(cbrFileDto);
+        sharedPreferencesManager.saveData(dataToCaching);
     }
 }
