@@ -52,7 +52,9 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
         sharedPreferencesManager = new SharedPreferencesManager(this);
         initRecyclerView();
 
+        Log.d(TAG, "Try to get DTO");
         if (!useCache()) {
+            Log.d(TAG, "Try to download from internet");
             download(findViewById(R.id.currenciesLayout));
         }
     }
@@ -103,9 +105,19 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
             @Override
             public void onResponse(Call<CbrFileDTO> call, Response<CbrFileDTO> response) {
                 cbrFileDto = response.body();
+
                 Log.d(TAG, "Response received");
 
                 fillActivityData(cbrFileDto);
+
+                Log.d(TAG, "RecycleView filled from internet");
+
+
+                Gson gson = new Gson();
+                String dataToCaching = gson.toJson(cbrFileDto);
+                sharedPreferencesManager.saveData(dataToCaching);
+
+                Log.d(TAG, "Cache updated");
             }
 
             @Override
@@ -148,6 +160,7 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
             return true;
         }
 
+        Log.d(TAG, "Cache not found");
         return false;
     }
 
@@ -155,14 +168,5 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
         Gson gson = new Gson();
         String cache = sharedPreferencesManager.loadData();
         return gson.fromJson(cache, CbrFileDTO.class);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        Gson gson = new Gson();
-        String dataToCaching = gson.toJson(cbrFileDto);
-        sharedPreferencesManager.saveData(dataToCaching);
     }
 }
