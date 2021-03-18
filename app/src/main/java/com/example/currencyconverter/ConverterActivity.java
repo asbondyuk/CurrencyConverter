@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,12 +19,15 @@ public class ConverterActivity extends AppCompatActivity {
 
     private CurrencyDTO currency;
 
+    private TextView textConvertedResult;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_converter);
 
         findViewById(R.id.textConvertResultHelper).setVisibility(View.INVISIBLE);
+        textConvertedResult = findViewById(R.id.textConvertResultHelper);
 
         this.currency = getIntent().getParcelableExtra("currency for convert");
 
@@ -44,9 +48,7 @@ public class ConverterActivity extends AppCompatActivity {
         if (ed_text.isEmpty() || ed_text.length() == 0 || ed_text.equals("") || ed_text == null) {
             Toast.makeText(this, "Need value", Toast.LENGTH_SHORT).show();
         } else {
-
-            TextView textResult = findViewById(R.id.textConvertResultHelper);
-            textResult.setVisibility(View.VISIBLE);
+            textConvertedResult.setVisibility(View.VISIBLE);
 
             String converterResult = CurrencyConverter.convert(Double.parseDouble(editText.getText().toString()), currency);
             TextView editTextView = findViewById(R.id.textConvertedResult);
@@ -55,5 +57,21 @@ public class ConverterActivity extends AppCompatActivity {
         }
 
         Log.d(TAG, "Show result converting");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putString("convertedResult", (String) textConvertedResult.getText());
+    }
+
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        String convertedResult = savedInstanceState.getString("convertedResult");
+        textConvertedResult.setText(convertedResult);
     }
 }

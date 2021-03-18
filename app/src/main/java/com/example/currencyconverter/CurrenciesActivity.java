@@ -98,20 +98,20 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
     }
 
     private void startDownloading() {
+        Log.d(TAG, "Init request to server");
+
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<CbrFileDTO> call = apiService.getCurrencies();
 
         call.enqueue(new Callback<CbrFileDTO>() {
             @Override
             public void onResponse(Call<CbrFileDTO> call, Response<CbrFileDTO> response) {
+                Log.d(TAG, "Success call.enqueue");
                 cbrFileDto = response.body();
-
-                Log.d(TAG, "Response received");
 
                 fillActivityData(cbrFileDto);
 
                 Log.d(TAG, "RecycleView filled from internet");
-
 
                 Gson gson = new Gson();
                 String dataToCaching = gson.toJson(cbrFileDto);
@@ -122,6 +122,7 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
 
             @Override
             public void onFailure(Call<CbrFileDTO> call, Throwable t) {
+                Log.d(TAG, "Choose load from cache");
             }
         });
 
@@ -154,9 +155,10 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
 
     private boolean useCache() {
         if (sharedPreferencesManager.isContainData()) {
+            Log.d(TAG, "Choose load from cache");
             fillActivityData(loadCache());
 
-            Log.d(TAG, "Cache was used");
+            Log.d(TAG, "Cache loaded");
             return true;
         }
 
@@ -169,4 +171,6 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
         String cache = sharedPreferencesManager.loadData();
         return gson.fromJson(cache, CbrFileDTO.class);
     }
+
+
 }
