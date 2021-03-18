@@ -7,7 +7,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,8 +17,8 @@ public class ConverterActivity extends AppCompatActivity {
     public static final String TAG = "ConverterActivity";
 
     private CurrencyDTO currency;
-
     private TextView textConvertedResult;
+    private String result;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,21 +56,5 @@ public class ConverterActivity extends AppCompatActivity {
         }
 
         Log.d(TAG, "Show result converting");
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-
-        savedInstanceState.putString("convertedResult", (String) textConvertedResult.getText());
-    }
-
-
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        String convertedResult = savedInstanceState.getString("convertedResult");
-        textConvertedResult.setText(convertedResult);
     }
 }

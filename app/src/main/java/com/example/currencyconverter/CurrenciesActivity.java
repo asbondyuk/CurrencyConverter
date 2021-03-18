@@ -40,7 +40,6 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
     private CurrencyAdapter currencyAdapter;
 
     private List<CurrencyDTO> currencies;
-    private CbrFileDTO cbrFileDto;
 
     private SharedPreferencesManager sharedPreferencesManager;
 
@@ -53,9 +52,14 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
         initRecyclerView();
 
         Log.d(TAG, "Try to get DTO");
-        if (!useCache()) {
-            Log.d(TAG, "Try to download from internet");
+        if (sharedPreferencesManager.isContainData()) {
+            fillActivityData(loadCache());
+            Log.d(TAG, "Cache loaded");
+        } else {
+            Log.d(TAG, "Cache not found");
+
             download(findViewById(R.id.currenciesLayout));
+            Log.d(TAG, "Download from internet");
         }
     }
 
@@ -107,7 +111,7 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
             @Override
             public void onResponse(Call<CbrFileDTO> call, Response<CbrFileDTO> response) {
                 Log.d(TAG, "Success call.enqueue");
-                cbrFileDto = response.body();
+                CbrFileDTO cbrFileDto = response.body();
 
                 fillActivityData(cbrFileDto);
 
@@ -153,24 +157,9 @@ public class CurrenciesActivity extends AppCompatActivity implements RecyclerVie
         Log.d(TAG, "CurrenciesActivity was filled data");
     }
 
-    private boolean useCache() {
-        if (sharedPreferencesManager.isContainData()) {
-            Log.d(TAG, "Choose load from cache");
-            fillActivityData(loadCache());
-
-            Log.d(TAG, "Cache loaded");
-            return true;
-        }
-
-        Log.d(TAG, "Cache not found");
-        return false;
-    }
-
     private CbrFileDTO loadCache() {
         Gson gson = new Gson();
         String cache = sharedPreferencesManager.loadData();
         return gson.fromJson(cache, CbrFileDTO.class);
     }
-
-
 }
